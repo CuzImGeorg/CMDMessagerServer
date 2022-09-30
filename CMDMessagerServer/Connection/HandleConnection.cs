@@ -67,7 +67,7 @@ namespace CMDMessagerServer.Connection
                 int bytesRec = socket.Receive(bytes);
                 data += Encoding.ASCII.GetString(bytes, 0, bytesRec);
                 if (data.IndexOf("<EOF>") > -1)
-                {
+    {
 
                     break;
                 }
