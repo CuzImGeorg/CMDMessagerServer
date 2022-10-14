@@ -21,7 +21,7 @@ namespace CMDMessagerServer.Connection
             commands.Add("?", "get all Commands");
             commands.Add("lu", "List all user");
             commands.Add("show", "Empfängt alle MSg neu");
-
+            commands.Add("clearmsgs", "Löscht den Msg Cashe");
 
         }
 
@@ -62,12 +62,18 @@ namespace CMDMessagerServer.Connection
 
                     break;
                 }
+                case "clearmsg": {
+                    Program.handleUser.msgs.Clear();
+
+                    break;
+                }
             }
             if(cmd.Substring(1).StartsWith("rename "))
             {
                 u.username = cmd[8..];
 
             }
+      
 
 
 
