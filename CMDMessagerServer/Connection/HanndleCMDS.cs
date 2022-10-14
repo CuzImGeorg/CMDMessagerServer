@@ -20,7 +20,7 @@ namespace CMDMessagerServer.Connection
             commands.Add("help", " as ?");
             commands.Add("?", "get all Commands");
             commands.Add("lu", "List all user");
-
+            commands.Add("show", "Empfängt alle MSg neu");
 
 
         }
@@ -43,7 +43,7 @@ namespace CMDMessagerServer.Connection
                     foreach (string s in commands.Keys)
                     {
                             u.handler.Send(Encoding.ASCII.GetBytes("/" + s + "                     " + commands[s] + "<EOF>" ));
-                            Thread.Sleep(200);
+                            Thread.Sleep(100);
 
                         }
                         break;
@@ -51,6 +51,15 @@ namespace CMDMessagerServer.Connection
                 case "help":
                 {
                         this.cmd("/?", u);
+                    break;
+                }
+                case "show" : {
+                    foreach(string s in Program.handleUser.msgs) {
+                        u.handler.Send(Encoding.ASCII.GetBytes(s));
+                        Thread.Sleep(100);
+                    }
+
+
                     break;
                 }
             }

@@ -11,7 +11,7 @@ namespace CMDMessagerServer.Connection
     public class UserHandler
     {
         public  List<User> users = new List<User>();
-
+        public List<String> msgs = new List<string>();
 
 
         public void addUser(User user)
@@ -21,6 +21,8 @@ namespace CMDMessagerServer.Connection
 
         public void sendAll(string  msg, string username)
         {
+
+            msgs.Add(("[" + DateTime.Now.ToString("HH:mm:ss") + "]" + username + ":" + msg));
             try
             {
                 foreach (User user in users)
