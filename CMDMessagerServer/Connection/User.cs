@@ -37,6 +37,8 @@ namespace CMDMessagerServer.Connection
 
             while (true)
             {
+                data = null;
+                bytes = new Byte[2048];
                 int bytesRec = 0;
                 if (handler != null)
                 {
@@ -69,10 +71,6 @@ namespace CMDMessagerServer.Connection
             {
                 Program.handleUser.sendAll(data, username);
             }
-
-
-
-            handeCMD();
         }
 
     }
