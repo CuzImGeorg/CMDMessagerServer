@@ -17,7 +17,7 @@ namespace CMDMessagerServer.Connection
         public void StartListening()
         {
 
-           IPAddress ipAddress = IPAddress.Parse("212.87.212.36");
+          IPAddress ipAddress = IPAddress.Parse("212.87.212.36");
           // IPAddress ipAddress = IPAddress.Parse("127.0.0.1");
 
 

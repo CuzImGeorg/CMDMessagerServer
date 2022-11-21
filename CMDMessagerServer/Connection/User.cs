@@ -32,44 +32,49 @@ namespace CMDMessagerServer.Connection
 
         public void handeCMD()
         {
-            string data = null;
-            byte[] bytes = new Byte[2048];
-
             while (true)
             {
-                data = null;
-                bytes = new Byte[2048];
-                int bytesRec = 0;
-                if (handler != null)
-                {
+                string data = null;
+                byte[] bytes = new Byte[2048];
 
-                    try
+                while (true)
+                {
+                    int bytesRec = 0;
+                    if (handler != null)
                     {
-                        bytesRec = handler.Receive(bytes);
-                    }catch (SocketException e)
-                    {
+
+                        try
+                        {
+                            bytesRec = handler.Receive(bytes);
+                        }
+                        catch (SocketException e)
+                        {
+
+                        }
 
                     }
 
+                    data += Encoding.ASCII.GetString(bytes, 0, bytesRec);
+                    if (data.IndexOf("<EOF>") > -1)
+                    {
+
+                        break;
+
+                    }
+                   
+
                 }
 
-                data += Encoding.ASCII.GetString(bytes, 0, bytesRec);
-                if (data.IndexOf("<EOF>") > -1)
+                Console.WriteLine("Text received : {0}", data);
+
+                if (data.StartsWith("/"))
                 {
-
-                    break;
+                    Program.handleCMDS.cmd(data.Replace("<EOF>", ""), this);
                 }
-
-            }
-
-            Console.WriteLine("Text received : {0}", data);
-
-            if(data.StartsWith("/"))
-            {
-                Program.handleCMDS.cmd(data.Replace("<EOF>", ""), this);
-            } else
-            {
-                Program.handleUser.sendAll(data, username);
+                else
+                {
+                    Program.handleUser.sendAll(data, username);
+                }
             }
         }
 
