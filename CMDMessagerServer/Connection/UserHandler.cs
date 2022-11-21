@@ -29,12 +29,15 @@ namespace CMDMessagerServer.Connection
                 {
                     try
                     {
-                        user.handler.Send(Encoding.ASCII.GetBytes("[" + DateTime.Now.ToString("HH:mm:ss") + "]" + username + ":" + msg));
+                        if (user.handler.Connected)
+                        {
+                            user.handler.Send(Encoding.ASCII.GetBytes("[" + DateTime.Now.ToString("HH:mm:ss") + "]" + username + ":" + msg));
+                        }
 
                     }
-                    catch (SocketException e)
+                    catch (Exception e)
                     {
-                        users.Remove(user);
+
                     }
 
                 }
